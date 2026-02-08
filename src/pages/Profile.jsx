@@ -52,47 +52,6 @@ const Profile = () => {
     }
   };
 
-  const handleChangePassword = async (e) => {
-    e.preventDefault();
-
-    if (!formData.currentPassword || !formData.newPassword) {
-      toast.error("Please fill in all password fields");
-      return;
-    }
-
-    if (formData.newPassword !== formData.confirmPassword) {
-      toast.error("New passwords don't match");
-      return;
-    }
-
-    if (formData.newPassword.length < 6) {
-      toast.error("Password must be at least 6 characters");
-      return;
-    }
-
-    setIsChangingPassword(true);
-
-    try {
-      await authAPI.changePassword({
-        currentPassword: formData.currentPassword,
-        newPassword: formData.newPassword,
-      });
-
-      toast.success("Password changed successfully!");
-      setFormData({
-        ...formData,
-        currentPassword: "",
-        newPassword: "",
-        confirmPassword: "",
-      });
-    } catch (error) {
-      console.error("Failed to change password:", error);
-      toast.error(error.response?.data?.message || "Failed to change password");
-    } finally {
-      setIsChangingPassword(false);
-    }
-  };
-
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -269,64 +228,6 @@ const Profile = () => {
               </button>
             </div>
           )}
-        </form>
-      </div>
-
-      <div className="bg-white border border-gray-200 rounded-lg p-4 sm:p-6">
-        <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">
-          Change Password
-        </h2>
-
-        <form onSubmit={handleChangePassword} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Current Password
-            </label>
-            <input
-              type="password"
-              value={formData.currentPassword}
-              onChange={(e) => handleChange("currentPassword", e.target.value)}
-              className="w-full px-3 py-2 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-              placeholder="Enter current password"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              New Password
-            </label>
-            <input
-              type="password"
-              value={formData.newPassword}
-              onChange={(e) => handleChange("newPassword", e.target.value)}
-              className="w-full px-3 py-2 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-              placeholder="Enter new password"
-            />
-            <p className="text-xs text-gray-500 mt-1">
-              Must be at least 6 characters
-            </p>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Confirm New Password
-            </label>
-            <input
-              type="password"
-              value={formData.confirmPassword}
-              onChange={(e) => handleChange("confirmPassword", e.target.value)}
-              className="w-full px-3 py-2 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-              placeholder="Confirm new password"
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={isChangingPassword}
-            className="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 text-sm"
-          >
-            {isChangingPassword ? "Changing..." : "Change Password"}
-          </button>
         </form>
       </div>
 
