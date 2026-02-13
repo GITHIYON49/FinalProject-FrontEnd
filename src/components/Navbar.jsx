@@ -214,12 +214,12 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-14 sm:h-16">
           <Link
             to="/"
-            className="flex items-center gap-2 sm:gap-3 flex-shrink-0"
+            className="flex items-center gap-2 sm:gap-3 lg:hidden flex-shrink-0"
           >
             <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
               <span className="text-white font-bold text-sm sm:text-lg">T</span>
             </div>
-            <span className="text-lg sm:text-xl font-semibold text-gray-900 hidden xs:block">
+            <span className="text-lg sm:text-xl font-semibold text-gray-900 hidden sm:block">
               TaskManager
             </span>
           </Link>
